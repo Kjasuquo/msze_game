@@ -31,10 +31,10 @@ def the_maze(direction, room):
 # Testing the_maze function with the examples
 print("---------- the_maze function--------")
 print()
-print(the_maze("", small_maze))
-print(the_maze("", two_exits))
-print(the_maze("", Exit))
-print(the_maze("", no_exit))
+print(the_maze("", small_maze))  # left forward upstairs
+print(the_maze("", two_exits))  # left forward upstairs
+print(the_maze("", Exit))  # forward
+print(the_maze("", no_exit))  # sorry
 print()
 print()
 
@@ -48,10 +48,10 @@ def maze(room):
 # Testing maze function with the examples
 print("----------maze function--------")
 print()
-print(maze(small_maze))
-print(maze(two_exits))
-print(maze(Exit))
-print(maze(no_exit))
+print(maze(small_maze))  # left forward upstairs
+print(maze(two_exits))  # left forward upstairs
+print(maze(Exit))  # forward
+print(maze(no_exit))  # sorry
 print()
 print()
 
@@ -71,7 +71,12 @@ app = Flask(__name__)
 @app.route('/maze/solve', methods=['POST'])
 def solve_maze():
     room = {'maze': request.json['maze']}
-    return maze(room["maze"])
+    directions = maze(room["maze"])
+    direct = directions.split()
+    way_out = []
+    for x in direct:
+        way_out.append(x)
+    return way_out
 
 
 # (Bonus): Input: maximum_children. Output: list of mazes with the input number as maximum number of nodes
@@ -89,7 +94,6 @@ def get_maze(max_children):
 
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
-
 
 # (Bonus): How to generate an Infinite maze
 """
